@@ -28,25 +28,34 @@ I think these decisions are meaningful, I've tried to describe them in this READ
 
 ## Code Organization
 
--  `src/`: The source for the server app goes in this directory.
--  `  server.ts`: This file contains the everything used to get the HTTP server initialized and running. We should not
-   pass the HTTP server instance outside of this file.
--  `  router.ts`: This contains the main web router. It is a starting point, and there can be multiple routers for
-   a complex app. It likely will be the place for middleware to be required and mounted into the app.
--  `client/`: A space for the client app
--  `  src/`: The source for the client app goes in this directory.
--  `    main.tsx`: The main entry point for the client app.
--  `  package.json`: A separate file to manage client side dependencies that may end up in the bundle. It's wise to keep
-   modules here small since they will have to be delivered to the client. Also, there should be no `devDependencies` in
-   this file, since scripts are run at the top-level only.
--  `  webpack.config.js`: The build configuration for client code.
--  `types/`: A directory to store type definitions that aren't offered by the dependent packages themselves or via
-   DefinitelyTyped. Create a file named after the package (inside a directory for scoped packages) with the suffix
-   `.d.ts`. Within that file, you declare the module and export symbols from the declared module.
--  `views/`: A directory which contains server rendered page templates
--  `build/`: The output directory for a build.
--  `.env[.sample]`: A file to define environment variables for development configuration. The sample file should be
-   updated each time a new configuration variable is created with some suggestion of how to populate the value.
+```
+src/            # The source for the server app goes in this directory.
+  server.ts     # This file contains the everything used to get the HTTP server initialized and running.
+                # Do not pass the HTTP server instance outside of this file.
+  router.ts     # This contains the main web router. It is a starting point, and there can be multiple
+                # routers for a complex app. Middleware would be required and mounted into the app here.
+views/          # A directory which contains server rendered page templates.
+
+client/         # A space for the client app.
+  src/          # The source for the client app goes in this directory.
+    main.tsx    # The main entry point for the client app.
+  package.json  # A separate file to manage client-side dependencies. Keep modules here small since they
+                # contribute to page weight. Also, there should be no `devDependencies` in this file,
+                # since scripts are run at the top-level only.
+  webpack.config.js # The build configuration for client code.
+
+package.json    # A file to manage scripts, their dependencies, and server dependencies.
+types/          # A directory to store type definitions that aren't offered by dependent packages or via
+                # DefinitelyTyped. Create a file named after the package (inside a directory for scoped
+                # packages) with the suffix `.d.ts`. Within that file, you declare the module and export
+                # symbols from the declared module.
+.env[.sample]   # A file to define environment variables for development configuration. The sample file
+                # should be updated each time a new configuration variable is created with some
+                # suggestion of how to populate that value.
+
+build/          # The output directory for a build. Should be completely generated from other directories
+                # and treated as disposable.
+```
 
 ## What's Missing?
 
