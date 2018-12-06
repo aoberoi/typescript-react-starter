@@ -1,5 +1,7 @@
 # typescript-react-starter
 
+![Readiness: Under Construction](https://img.shields.io/badge/readiness-under%20construction-orange.svg)
+
 A starting point for building a web app, both the server and the client, with the following technologies:
 
 *  React v16.6
