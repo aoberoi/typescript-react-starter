@@ -1,0 +1,21 @@
+{
+  "name": "@aoberoi/typescript-react-starter-client",
+  "version": "0.1.0",
+  "private": true,
+  "description": "",
+  "license": "MIT",
+  "scripts": {
+    "lint": "tslint --project .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=production",
+    "start": "webpack-dev-server --open --mode=development"
+  },
+  "dependencies": {
+    "@types/classnames": "^2.2.6",
+    "@types/react": "^16.7.13",
+    "@types/react-dom": "^16.0.11",
+    "classnames": "^2.2.6",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  }
+}

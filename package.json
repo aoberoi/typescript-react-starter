@@ -1,0 +1,48 @@
+{
+  "name": "@aoberoi/typescript-react-starter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A starting point for building a web app with React and TypeScript",
+  "license": "MIT",
+  "author": "Ankur Oberoi <aoberoi@gmail.com>",
+  "scripts": {
+    "start": "node build/server.js",
+    "start:dev": "shx rm -rf ./build/client && node -r dotenv/config build/server.js & webpack-dev-server --open --config client/webpackge.config.js --mode=development",
+    "postinstall": "npm install --prefix client && npm run build",
+    "lint": "npm run lint:server && npm run lint:client",
+    "lint:server": "tslint --project .",
+    "lint:client": "tslint --project client --config tslint.json",
+    "test": "npm run lint && exit 0 # TODO",
+    "build": "tsc && npm run build:client",
+    "build:clean": "shx rm -rf ./build",
+    "build:client": "webpack --config client/webpack.config.js --mode=production"
+  },
+  "engines": {
+    "node": "10"
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ],
+  "devDependencies": {
+    "css-loader": "^1.0.1",
+    "dotenv": "^6.1.0",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.4.0",
+    "shx": "^0.3.2",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^5.3.1",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.2.1",
+    "webpack": "^4.27.0",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  },
+  "dependencies": {
+    "@types/express": "^4.16.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
+  }
+}

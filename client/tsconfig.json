@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig",
+  "compilerOptions": {
+    "outDir": "../build/client",
+    "baseUrl": "./",
+    "jsx": "react",
+    "lib": ["dom", "dom.iterable", "es5", "es2015", "es2016"]
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
