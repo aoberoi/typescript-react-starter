@@ -7,7 +7,9 @@ A starting point for building a web app, both the server and the client, with th
 *  React v16.6
 *  TypeScript 3.2
 
-**Why?** While you could use a project like [create-react-app](https://github.com/facebook/create-react-app), and even
+### Why?
+
+While you could use a project like [create-react-app](https://github.com/facebook/create-react-app), and even
 variants that use TypeScript, I found that building my own helped me gain a deeper understanding of how each of the
 technologies work.
 
@@ -20,17 +22,31 @@ I think these decisions are meaningful, I've tried to describe them in this READ
 
 *  Figure out of `webpack-cli` + `webpack-dev-server` are still the best supported ways to get the development server up
    and running.
-*  Describe webpack and all the loaders.
-*  Describe CSS Modules and how its used.
+*  Describe each of the scripts and how they are used.
+*  Describe webpack and the config/loaders.
+*  Describe PostCSS and CSS Modules, and how they are used.
 
 ## Code Organization
 
--  `client/`: There should be no devDependencies in client/package.json
--  `src/`:
--  `types/`:
--  `views/`:
--  `build/`:
--  `.env[.sample]`:
+-  `src/`: The source for the server app goes in this directory.
+-  `  server.ts`: This file contains the everything used to get the HTTP server initialized and running. We should not
+   pass the HTTP server instance outside of this file.
+-  `  router.ts`: This contains the main web router. It is a starting point, and there can be multiple routers for
+   a complex app. It likely will be the place for middleware to be required and mounted into the app.
+-  `client/`: A space for the client app
+-  `  src/`: The source for the client app goes in this directory.
+-  `    main.tsx`: The main entry point for the client app.
+-  `  package.json`: A separate file to manage client side dependencies that may end up in the bundle. It's wise to keep
+   modules here small since they will have to be delivered to the client. Also, there should be no `devDependencies` in
+   this file, since scripts are run at the top-level only.
+-  `  webpack.config.js`: The build configuration for client code.
+-  `types/`: A directory to store type definitions that aren't offered by the dependent packages themselves or via
+   DefinitelyTyped. Create a file named after the package (inside a directory for scoped packages) with the suffix
+   `.d.ts`. Within that file, you declare the module and export symbols from the declared module.
+-  `views/`: A directory which contains server rendered page templates
+-  `build/`: The output directory for a build.
+-  `.env[.sample]`: A file to define environment variables for development configuration. The sample file should be
+   updated each time a new configuration variable is created with some suggestion of how to populate the value.
 
 ## What's Missing?
 
@@ -43,11 +59,12 @@ I think these decisions are meaningful, I've tried to describe them in this READ
 
 ## Other technologies
 
-*  [Express](https://expressjs.com): This web server framework is ubiquitous in the Node.js server development
-   community. It seems as good a choice as any for simple projects.
+*  [Express](https://expressjs.com): This web server framework is ubiquitous for Node.js server development. It seems as
+   good a choice as any for simple projects.
 
-*  [webpack]():
-   * [ts-loader]():
+*  [webpack](): **TODO**
+
+*  [PostCSS]() and [CSS Modules](): **TODO**
 
 *  [tslint](https://palantir.github.io/tslint/): TSLint helps detect common errors and enforce a consistent style by
    statically analyzing all TypeScript code in the project. Coming from using ESLint, and specifically the
