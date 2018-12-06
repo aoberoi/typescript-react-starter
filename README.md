@@ -8,15 +8,20 @@ A starting point for building a web app, both the server and the client, with th
 *  TypeScript 3.2
 
 **Why?** While you could use a project like [create-react-app](https://github.com/facebook/create-react-app), and even
-variants that use TypeScript, I found that building my own helped me attain a deeper understanding of how the
-technologies work. Also, this project differs in the fact that the server incorporates the client app rather than only
-defining a standalone client app. Sometimes, I ended up making decisions different from those projects because of my own
-preferences and background. When I think these decisions are meaningful, I've tried to describe them here.
+variants that use TypeScript, I found that building my own helped me gain a deeper understanding of how each of the
+technologies work.
+
+This is a server app that __contains__ a client app. Many other examples only build around producing a client app, which eventually has to be served from some other server. I found that unhelpful when trying to plug the pieces together.
+
+I've also made some other secondary technology choices and decisions, different from the common examples I found. When
+I think these decisions are meaningful, I've tried to describe them in this README.
 
 ## TODO
 
 *  Figure out of `webpack-cli` + `webpack-dev-server` are still the best supported ways to get the development server up
    and running.
+*  Describe webpack and all the loaders.
+*  Describe CSS Modules and how its used.
 
 ## Code Organization
 
