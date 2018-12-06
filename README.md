@@ -20,9 +20,6 @@ I think these decisions are meaningful, I've tried to describe them in this READ
 
 ## TODO
 
-*  Figure out of `webpack-cli` + `webpack-dev-server` are still the best supported ways to get the development server up
-   and running.
-*  Describe each of the scripts and how they are used.
 *  Describe webpack and the config/loaders.
 *  Describe PostCSS and CSS Modules, and how they are used.
 
@@ -56,6 +53,92 @@ types/          # A directory to store type definitions that aren't offered by d
 build/          # The output directory for a build. Should be completely generated from other directories
                 # and treated as disposable.
 ```
+
+## Scripts
+
+In the typical development workflow, you only need `npm run build` and `npm start`. However, if you're only focussed on
+client development, you should `npx tsx` (to build the server) and then `npm run start:dev`.
+
+### Build
+
+```
+npm run build
+```
+
+Builds both the server and client code, placing the output in the `build` directory.
+
+```
+npm run build:client
+```
+
+Builds only the client code, placing the output in the `build/client` directory.
+
+```
+npx tsc
+```
+
+Builds only the server code, placing the output in the `build` directory.
+
+```
+npm run build:clean
+```
+
+Delete the output of previous builds.
+
+### Run
+
+```
+npm start
+```
+
+Run the server application, which also serves the client code. You need to have previously built both in order for this
+to work correctly.
+
+```
+npm run start:dev
+```
+
+Run the server application, with the client code hosted by the webpack development server. Development mode allows for
+rapid iteration using webpack features such as HMR. You need to have previously built the server code for this to work
+correctly.
+
+
+### Test
+
+```
+npm run lint
+```
+
+Lint both the server and client code.
+
+```
+npm run lint:server
+```
+
+Lint only the server code.
+
+```
+npm run lint:client
+```
+
+Lint only the client code.
+
+```
+npm test
+```
+
+Currently, this script lints both the server and client code and then exits. In the future this script will be used to
+run the entire test suite.
+
+### Other
+
+```
+npm run postinstall
+```
+
+You should never need to run this script directly. It's provided as a convenience to chain the package install for the
+client code, and then execute a build. This is useful when hosting in a platform like Heroku, where these tasks should
+occur before running the application.
 
 ## What's Missing?
 
