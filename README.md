@@ -168,15 +168,16 @@ occur before running the application.
       is used to resolve `import`s of css files _in the source JavaScript/TypeScript_.
 
 *  [PostCSS](https://postcss.org/) and [CSS Modules](https://github.com/css-modules/css-modules): PostCSS is a tool that
-   applies transformations on CSS according to its configuration. In this project PostCSS has been configured to use the
-   [`postcss-preset-env`](https://github.com/csstools/postcss-preset-env) plugin, which applies transformations that
-   polyfill modern CSS syntax to work in older browsers, including prefixing CSS properties and values using [`autoprefixer`](https://github.com/postcss/autoprefixer). The exact set of transforms depends on the target
-   environment, which can be configured if necessary, but currently is just using the default. CSS Modules is a
-   technique of isolating CSS code to make it easier to work with, similar to the way components isolate DOM. CSS code
-   in this project is written using CSS Modules. CSS files can be imported into TypeScript files and the default export
-   contains a property for each CSS class name. The value of each property is a unique name that call be assigned to
-   an element's `class` attribute, or in JSX the `className` prop. Webpack is responsible for loading that CSS when it
-   is imported, so you can simply work on modules with independent CSS code.
+   applies transformations on CSS according to its configuration - in `client/postcss.config.js`. In this project
+   PostCSS has been configured to use the [`postcss-preset-env`](https://github.com/csstools/postcss-preset-env) plugin,
+   which applies transformations that polyfill modern CSS syntax to work in older browsers, including prefixing CSS
+   properties and values using [`autoprefixer`](https://github.com/postcss/autoprefixer). The exact set of transforms
+   depends on the target environment, which can be configured if necessary, but currently is just using the default. CSS
+   Modules is a technique of isolating CSS code to make it easier to work with, similar to the way components isolate
+   DOM. CSS code in this project is written using CSS Modules. CSS files can be imported into TypeScript files and the
+   default export contains a property for each CSS class name. The value of each property is a unique name that call be
+   assigned to an element's `class` attribute, or in JSX the `className` prop. Webpack is responsible for loading that
+   CSS when it is imported, so you can simply work on modules with independent CSS code.
 
 *  [tslint](https://palantir.github.io/tslint/): TSLint helps detect common errors and enforce a consistent style by
    statically analyzing all TypeScript code in the project. Coming from using ESLint, and specifically the
