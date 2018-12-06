@@ -13,15 +13,10 @@ While you could use a project like [create-react-app](https://github.com/faceboo
 variants that use TypeScript, I found that building my own helped me gain a deeper understanding of how each of the
 technologies work.
 
-This is a server app that __contains__ a client app. Many other examples only build around producing a client app, which eventually has to be served from some other server. I found that unhelpful when trying to plug the pieces together.
+This is a server app that _contains_ a client app. Many other examples only focus on producing a client app, which eventually has to be served from some other server. I found that unhelpful when trying to plug the pieces together.
 
 I've also made some other secondary technology choices and decisions, different from the common examples I found. When
 I think these decisions are meaningful, I've tried to describe them in this README.
-
-## TODO
-
-*  Describe webpack and the config/loaders.
-*  Describe PostCSS and CSS Modules, and how they are used.
 
 ## Code Organization
 
@@ -146,6 +141,7 @@ occur before running the application.
 *  Server Side Rendering: I haven't found a need for using this in projects based on this starter, but perhaps I will.
    If adding support significantly alters and complicates the implementation here, I may choose to do that in a separate
    branch.
+*  Building other types of client assets: fonts, images (optimization, spriting, etc), etc.
 *  Extract TSLint config into an npm package: This would allow me to update the TSLint config from a single source and
    make it simpler to configure new projects.
 
@@ -154,9 +150,33 @@ occur before running the application.
 *  [Express](https://expressjs.com): This web server framework is ubiquitous for Node.js server development. It seems as
    good a choice as any for simple projects.
 
-*  [webpack](): **TODO**
+*  [webpack](https://webpack.js.org/): Webpack builds the client application code. In order to accomplish this, it uses
+   several loaders - packages that teach webpack how to handle specific source files. Webpack also makes a development
+   server available, where client source code changes are instantly propogated to the output and the browser can
+   reactively make changes.
 
-*  [PostCSS]() and [CSS Modules](): **TODO**
+   -  [`ts-loader`](https://github.com/TypeStrong/ts-loader): A loader for `.ts` and `.tsx` files. This loader handles
+      invoking the TypeScript compiler and producing output. It uses the configuration in `client/tsconfig.json`, which
+      inherits from the main `tsconfig.json`. Accordingly, any client specific configuration changes should be made to
+      the former file.
+
+   -  [`postcss-loader`](https://github.com/postcss/postcss-loader) ➡️
+      [`css-loader`](https://github.com/webpack-contrib/css-loader) ➡️
+      [`style-loader`](https://github.com/webpack-contrib/style-loader): A chain of loaders that work on `.css` files.
+      The `postcss-loader` is used to apply transforms to the source CSS according to a configuration (see below). Then,
+      the `css-loader` is used to resolve `@import` and `url()` syntax _in the source CSS_. Lastly, the `style-loader`
+      is used to resolve `import`s of css files _in the source JavaScript/TypeScript_.
+
+*  [PostCSS](https://postcss.org/) and [CSS Modules](https://github.com/css-modules/css-modules): PostCSS is a tool that
+   applies transformations on CSS according to its configuration. In this project PostCSS has been configured to use the
+   [`postcss-preset-env`](https://github.com/csstools/postcss-preset-env) plugin, which applies transformations that
+   polyfill modern CSS syntax to work in older browsers, including prefixing CSS properties and values using [`autoprefixer`](https://github.com/postcss/autoprefixer). The exact set of transforms depends on the target
+   environment, which can be configured if necessary, but currently is just using the default. CSS Modules is a
+   technique of isolating CSS code to make it easier to work with, similar to the way components isolate DOM. CSS code
+   in this project is written using CSS Modules. CSS files can be imported into TypeScript files and the default export
+   contains a property for each CSS class name. The value of each property is a unique name that call be assigned to
+   an element's `class` attribute, or in JSX the `className` prop. Webpack is responsible for loading that CSS when it
+   is imported, so you can simply work on modules with independent CSS code.
 
 *  [tslint](https://palantir.github.io/tslint/): TSLint helps detect common errors and enforce a consistent style by
    statically analyzing all TypeScript code in the project. Coming from using ESLint, and specifically the
